@@ -10,9 +10,26 @@ int item_number;
 struct node* next;
 };
 
-void add_node(struct node* head){
-printf("%d\n", head->item_number);
-free(head);
+struct linked_list{
+struct node* first;
+struct node* last;
+}
+
+
+struct node* add_node(struct node* node){
+char message [MAX_MESSAGE_SIZE];
+
+printf("Please enter a message\n");
+scanf("%s",message);
+
+struct node* new_node = (struct node*)malloc(sizeof(struct node));
+
+node->next = new_node;
+strcpy(new_node->message, message);
+new_node->item_number = node->item_number++;
+
+
+return new_node;
 };
 
 
@@ -20,25 +37,47 @@ void iterate_list(){};
 void print_list(){};
 void delete_and_exit(){};
 
+
 int main(){
 
-struct node* head = NULL;
-head = (struct node*)malloc(sizeof(struct node));
+
+struct node* head = (struct node*)malloc(sizeof(struct node));
+struct linked_list* linked_list = (struct linked_list*)malloc(sizeof(struct linked_list));
+linked_list->first = head;
+linked_list->last = head;
+
 strcpy(head->message, "LIST HEAD");
 head->item_number = 0;
+head->next = NULL;
 
-int user_input = NULL;
+
+int user_input;
 printf("What would you like to do? \n");
 printf("1: Add Item \n");
 printf("2: Print List \n");
 
 scanf("%d",&user_input);
 
-switch(user_input){
-    case 1:add_node(head); break;
-    case 2:print_list(); break;
-    case 3:delete_and_exit(); break;
-    default: printf("error"); break;
+
+while(1){
+
+    struct node* last_node = NULL;
+
+    switch(user_input){
+        case 1:
+
+        last_node = add_node(linked_list->last);
+        break;
+
+
+        case 2:print_list(); break;
+        case 3:delete_and_exit(); break;
+        default: printf("error"); break;
+    }
+
+    if(last_node!=NULL)
+        linked_list->last = last_node;
+
 }
 
 return 0;
