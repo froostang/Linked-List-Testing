@@ -20,7 +20,7 @@ struct node* add_node(struct node* node){
 char message [MAX_MESSAGE_SIZE];
 
 printf("Please enter a message\n");
-scanf("%s",message);
+fgets (message, MAX_MESSAGE_SIZE, stdin);
 
 struct node* new_node = (struct node*)malloc(sizeof(struct node));
 
@@ -40,6 +40,10 @@ printf("%s\n",node->message);
 printf("List Number: %d\n",node->item_number);
 node=node->next;
 }
+if(node && !node->next){
+printf("%s\n",node->message);
+printf("List Number: %d\n",node->item_number);
+}
 
 printf("End of list\n");
 };
@@ -56,8 +60,12 @@ temp = node;
 node=node->next;
 free(temp);
 }
+if(node && !node->next){
+free(node);
+}
 
 printf("Cleared Mem\n");
+exit(0);
 
 };
 
@@ -82,6 +90,7 @@ while(1){
     printf("What would you like to do? \n");
     printf("1: Add Item \n");
     printf("2: Print List \n");
+    printf("3: Delete and Exit \n");
 
     scanf("%d",&user_input);
 
