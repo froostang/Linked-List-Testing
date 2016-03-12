@@ -18,6 +18,7 @@ struct node* last;
 
 struct node* add_node(struct node* node){
 char message [MAX_MESSAGE_SIZE];
+int item_number;
 
 printf("Please enter a message\n");
 scanf("%s",message);
@@ -26,8 +27,10 @@ struct node* new_node = (struct node*)malloc(sizeof(struct node));
 
 node->next = new_node;
 
+item_number= node->item_number;
+
 strcpy(new_node->message, message);
-new_node->item_number = node->item_number++;
+new_node->item_number = ++item_number;
 new_node->next = NULL;
 
 return new_node;
@@ -35,7 +38,9 @@ return new_node;
 
 
 void print_list(struct node* node){
-while(node){
+
+
+do{
 printf("%s\n",node->message);
 printf("List Number: %d\n",node->item_number);
 
@@ -43,7 +48,7 @@ if(node->next)
     node=node->next;
 else
     node=NULL;
-}
+}while(node);
 
 
 printf("End of list\n");
@@ -56,7 +61,9 @@ void delete_and_exit(struct node* node) {
 
 struct node* temp = NULL;
 
-while(node->next!=NULL){
+
+
+do {
 temp = node;
 node=node->next;
 free(temp);
@@ -65,8 +72,7 @@ if(node->next)
     node=node->next;
 else
     node=NULL;
-
-}
+}while(node->next!=NULL);
 
 
 printf("Cleared Mem\n");
@@ -84,7 +90,7 @@ linked_list->first = head;
 linked_list->last = head;
 
 strcpy(head->message, "LIST HEAD");
-head->item_number = 0;
+head->item_number = 1;
 head->next = NULL;
 
 
