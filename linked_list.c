@@ -21,7 +21,7 @@ char message [MAX_MESSAGE_SIZE];
 int item_number;
 
 printf("Please enter a message\n");
-scanf("%s",message);
+fgets(message, sizeof(message), stdin);
 
 struct node* new_node = (struct node*)malloc(sizeof(struct node));
 
@@ -39,17 +39,10 @@ return new_node;
 
 void print_list(struct node* node){
 
-
 do{
-printf("%s\n",node->message);
-printf("List Number: %d\n",node->item_number);
-
-if(node->next)
-    node=node->next;
-else
-    node=NULL;
+printf("Message: %sList Number: %d \n",node->message,node->item_number);
+node=node->next;
 }while(node);
-
 
 printf("End of list\n");
 };
@@ -57,24 +50,22 @@ printf("End of list\n");
 
 
 
-void delete_and_exit(struct node* node) {
+void delete_and_exit(struct linked_list* linked_list) {
 
+struct node* node = linked_list->first;
 struct node* temp = NULL;
-
-
+struct node* next = NULL;
 
 do {
-temp = node;
-node=node->next;
+temp=node;
+next=node->next;
 free(temp);
+if(next){
+    node=next;
+}
+}while(next);
 
-if(node->next)
-    node=node->next;
-else
-    node=NULL;
-}while(node->next!=NULL);
-
-
+free(linked_list);
 printf("Cleared Mem\n");
 exit(0);
 
@@ -89,12 +80,13 @@ struct linked_list* linked_list = (struct linked_list*)malloc(sizeof(struct link
 linked_list->first = head;
 linked_list->last = head;
 
-strcpy(head->message, "LIST HEAD");
+strcpy(head->message, "LIST HEAD \n");
 head->item_number = 1;
 head->next = NULL;
 
 
 int user_input;
+char buf1 [10];
 
 while(1){
 
@@ -103,7 +95,8 @@ while(1){
     printf("2: Print List \n");
     printf("3: Delete and Exit \n");
 
-    scanf("%d",&user_input);
+    fgets(buf1, sizeof(buf1), stdin);
+    user_input = atoi(buf1);
 
     struct node* last_node = NULL;
 
@@ -116,7 +109,7 @@ while(1){
         print_list(linked_list->first);
         break;
 
-        case 3:delete_and_exit(linked_list->first); break;
+        case 3:delete_and_exit(linked_list); break;
         default: printf("error"); break;
     }
 
