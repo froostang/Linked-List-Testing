@@ -10,6 +10,7 @@ struct car{
 	int cost;
 };
 
+/*prompts to enter info*/
 void EnterInfo(struct car *data)
 {
 	printf("enter the model:\n");
@@ -22,6 +23,7 @@ void EnterInfo(struct car *data)
 	scanf("%d", &data->cost);
 }
 
+/*display structure info*/
 void DisplayInfo(struct car *data)
 {
 	printf("--------------------------\n");
@@ -35,9 +37,9 @@ struct car *mine;
 int main()
 {
 
-mine = (struct car*)malloc(sizeof(struct car));
-EnterInfo(mine);
-DisplayInfo(mine);
-free(mine);
-
+	mine = (struct car*)malloc(sizeof(struct car));
+	EnterInfo(mine);
+	DisplayInfo(mine);
+	free(mine);
+	return 0;
 }
