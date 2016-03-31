@@ -41,16 +41,32 @@ void WalkListandDisplay(struct class *walker)
 
 }
 
+void freemem(struct class *start)
+{
+	struct class *temp = NULL;
+
+	while(start != NULL)
+	{
+		temp = start->next;
+		free(start);
+		start = temp;
+	}
+	free(start);
+	free(temp);
+
+}
+
+
 struct class *head;
 
 int main()
 {
 
-head = (struct class*)malloc(sizeof(struct class));
-CreateList(head);
-WalkListandDisplay(head);
+	head = (struct class*)malloc(sizeof(struct class));
+	CreateList(head);
+	WalkListandDisplay(head);
 
-free(head);
+	freemem(head);
 
 
 	return 0;
