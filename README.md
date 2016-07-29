@@ -1,2 +1,3 @@
-# BSLL
-some linked list thing
+Linked List
+
+Rough linked list implementation in C
